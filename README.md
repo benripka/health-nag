@@ -3,46 +3,15 @@
 <h3 style="border-bottom: none; margin-top: 0;">A stricter enforcer of healthy habits</h3>
 </div>
 
-<div align="center">
-
-                    :--::@@@@ ---      
-                ... ---:%@@@@:---: ..   
-                ... :--:%@@@@:---  ..  
-                 .. .--:%@@@@:--- ...  
-                  .. --:%@@@@.--: ..   
-                   . :-:%@@@@.--  .    
-                      ::%@@@@.-- .     
-              -+. .@@@@.@@@@@.-. .     
-         :.  @@@@#=@@@@+%@@@@.- .      
-       *@@@@ @@@@%=@@%-.*@@@@.:        
-       %@@@@.@@@@%=@:@@@@=*@@.         
-       %@@@@.@@@@%:@-@@@@@%.@.         
-       %@@@@.#@@@+: ..@@@@@@:          
-       =@@@@:%.        *@@@@@%         
-        -::*@:          .@@@@@@        
-       .@@@@%            -#@@@@        
-       .@@@@@            @@=:-         
-        @@@@@+          *@@@@@         
-        .@@@@@@:      :@@@@@@          
-          @@@@@@@@@@@@@@@@@@           
-           :@@@@@@@@@@@@@@:            
-              :#@@@@@@#.               
-</div>
-
 ## Overview
-
 Health-Nag is a desktop utility designed to provide forceful health-related reminders for those who are prone to hyperfixation. This tool aims to interrupt intense focus periods with important reminders to maintain physical and mental well-being such as resting your eyes, eating, hydrating, and taking breaks. Health-Nag ensures that critical health reminders are not easily ignored.
 
 ## How it works
 #### When a reminder is triggered your screen is taken over by this overlay for the duration of the reminder.
-![When a reminder is triggered](<Screenshot from 2024-10-02 10-00-10.png>)
-
+![When a reminder is triggered](<Screenshot from 2024-10-02 10-42-53.png>)
 #### The overlay cannot be exited until the reminder is complete, or until you agree to the consequences of exiting
-
-![When you try to exit the overlay](<Screenshot from 2024-10-02 10-00-27.png>)
-
+![When you try to exit the overlay](<Screenshot from 2024-10-02 10-42-58.png>)
 ## Features
-
 - Presets for common health-related reminders
 - Add custom reminders
 - Include ASCII art for custom reminders
@@ -66,7 +35,7 @@ Health-Nag is a desktop utility designed to provide forceful health-related remi
    cd health-nag
    ```
 
-4. Run the install script to install the presets. Rerunning the install script will reset the reminders to those set in reminders.json:
+4. Run the install script to install the presets. This will also run the last reminder in the list (for testing purposes) Rerunning the install script will reset the reminders to those set in reminders.json:
    ```
    cd health-nag
    cat install.sh # Inspect the script first to make sure you trust it

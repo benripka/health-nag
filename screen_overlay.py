@@ -4,6 +4,7 @@ import tkinter as tk
 import argparse
 import json
 import os
+from datetime import timedelta
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -61,11 +62,29 @@ def overlay(reminder):
 
     # Main command label
     label = tk.Label(content_frame, text=reminder['command'], fg="#61dafb", bg='#282c34', font=("Courier", 36))
-    label.pack(pady=40)
+    label.pack(pady=(40, 20))
 
-        # Explanation label for the 20-20-20 rule (optional, this can be removed if not needed)
+    # Timer label
+    remaining_time = reminder['duration']
+    timer_label = tk.Label(content_frame, text="", fg="#61dafb", bg='#282c34', font=("Courier", 36))
+    timer_label.pack(pady=(0, 20))
+
+    def update_timer():
+        nonlocal remaining_time
+        if remaining_time > 0:
+            minutes, seconds = divmod(remaining_time, 60)
+            timer_label.config(text=f"{minutes:02d}:{seconds:02d}")
+            remaining_time -= 1
+            root.after(1000, update_timer)
+        else:
+            root.destroy()
+
+    # Start the timer
+    update_timer()
+
+    # Explanation label for the 20-20-20 rule (optional, this can be removed if not needed)
     explanation_label = tk.Label(content_frame, text=f"""{reminder['description']}""",
-                                 fg="white", bg='#282c34', font=("Courier", 21), wraplength=1200, justify="center")
+                                 fg="white", bg='#282c34', font=("Courier", 18), wraplength=1200, justify="center")
     explanation_label.pack(pady=40)
 
     # Override reason label
@@ -105,8 +124,9 @@ def overlay(reminder):
     root.bind("<Escape>", lambda e: None)  # Ignore escape
     root.update()
 
-    # Display the overlay for the specified duration unless dismissed by the user
-    root.after(reminder['duration'] * 1000, root.destroy)  # Auto-destroy after the specified time
+    # Remove the auto-destroy after line
+    # root.after(reminder['duration'] * 1000, root.destroy)
+
     root.mainloop()
 
 
