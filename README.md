@@ -102,28 +102,7 @@ Where
 ./install.sh
 ```
 
-## Contributing
-
-Contributions are welcome! If you have ideas for improving Health-Nag or adding features beneficial for ADHD management, please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- PyQt5 for providing the GUI framework
-- The `keyboard` library for hotkey functionality
-
-## Support
-
-If you encounter any problems, have suggestions, or need assistance adapting Health-Nag to your specific ADHD management needs, please open an issue on the GitHub repository.
-
----
-
-Stay healthy, stay focused!
-
-## Installation on macOS !!!!WARNING: This is untested, probably won't work. If you fix it please create a PR.
+### Installation on macOS !!!!WARNING: This is untested, probably won't work. If you fix it please create a PR.
 
 For macOS users, we provide a separate installation script that uses launchd instead of cron for scheduling reminders. Follow these steps to install Health Nag on your Mac:
 
@@ -195,3 +174,24 @@ launchctl unload ~/Library/LaunchAgents/com.health-nag.eyes.plist
 6. You can view the installation log at `%USERPROFILE%\health-nag.log`
 
 After installation, the reminders will run according to their scheduled times. You can manage these tasks using the Windows Task Scheduler.
+
+## Contributing
+
+Contributions are welcome! If you have ideas for improving Health-Nag or adding features beneficial for ADHD management, please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- PyQt5 for providing the GUI framework
+- The `keyboard` library for hotkey functionality
+
+## Support
+
+If you encounter any problems, have suggestions, or need assistance adapting Health-Nag to your specific ADHD management needs, please open an issue on the GitHub repository.
+
+---
+
+Stay healthy, stay focused!
