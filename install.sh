@@ -84,3 +84,19 @@ else
 fi
 
 log_message "Installation complete. Cron jobs have been set up for the current user."
+
+# Get the last reminder from reminders.json and run it as a test
+if [ -f "$INSTALL_DIR/$REMINDERS_FILE" ]; then
+    last_reminder=$(jq -c '.[-1]' "$INSTALL_DIR/$REMINDERS_FILE")
+    if [ $? -eq 0 ] && [ ! -z "$last_reminder" ]; then
+        last_reminder_name=$(echo "$last_reminder" | jq -r '.name')
+        log_message "Running last reminder '$last_reminder_name' as a test..."
+        export DISPLAY=$DISPLAY && export XAUTHORITY=$XAUTHORITY && "$INSTALL_DIR/$SCRIPT_NAME" --name "$last_reminder_name"
+    else
+        log_message "Error: Unable to get last reminder from $REMINDERS_FILE"
+    fi
+else
+    log_message "Error: $REMINDERS_FILE not found."
+fi
+
+log_message "Running first reminder as a test..."
