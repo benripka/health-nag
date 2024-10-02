@@ -5,9 +5,9 @@
 Health-Nag is a desktop utility designed to provide forceful health-related reminders for those who are prone to hyperfixation. This tool aims to interrupt intense focus periods with important reminders to maintain physical and mental well-being such as resting your eyes, eating, hydrating, and taking breaks. Health-Nag ensures that critical health reminders are not easily ignored.
 
 ## How it works
-#### When a reminder is triggered your screen is taken over by this overlay for the duration of the reminder.
+Periodically your screen is taken over by an overlay like this:
 ![When a reminder is triggered](<docs/Screenshot from 2024-10-02 10-42-53.png>)
-#### The overlay cannot be exited until the reminder is complete, or until you agree to the consequences of exiting
+The overlay cannot be exited until either the reminder is complete, or you agree to the consequences of exiting
 ![When you try to exit the overlay](<docs/Screenshot from 2024-10-02 10-42-58.png>)
 ## Features
 - 3 reminder presets for:
