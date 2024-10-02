@@ -2,8 +2,6 @@
 <h1 style="border-bottom: none; margin-bottom: 0;">Health-Nag</h1>
 <h3 style="border-bottom: none; margin-top: 0;">A stricter enforcer of healthy habits</h3>
 </div>
-
-## Overview
 Health-Nag is a desktop utility designed to provide forceful health-related reminders for those who are prone to hyperfixation. This tool aims to interrupt intense focus periods with important reminders to maintain physical and mental well-being such as resting your eyes, eating, hydrating, and taking breaks. Health-Nag ensures that critical health reminders are not easily ignored.
 
 ## How it works
