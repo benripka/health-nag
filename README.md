@@ -12,9 +12,10 @@ Health-Nag is a desktop utility designed to provide forceful health-related remi
 #### The overlay cannot be exited until the reminder is complete, or until you agree to the consequences of exiting
 ![When you try to exit the overlay](<Screenshot from 2024-10-02 10-42-58.png>)
 ## Features
-- Presets for common health-related reminders
-- Add custom reminders
-- Include ASCII art for custom reminders
+- 3 reminder presets for:
+   - Eyes: Reminds you to look away from your screen every 1 hr. Blocks screen for 30 seconds.
+   - Food: Reminds you to eat at 9am, 12pm, and 6pm. Blocks screen for 5 minutes.
+   - Drink: Reminds you to drink every 2 hours. Blocks screen for 10 seconds.
 - Customizable reminder messages and intervals
 
 ## Installation (Debian/Ubuntu Linux)
