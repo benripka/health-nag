@@ -24,9 +24,9 @@
         "command": "Stop looking at your screen",
         "overrideReason": "What I'm doing right now is more important than my ability to blink.",
         "overrideKey": "blind me",
-        "duration": 25,
+        "duration": 2,
         "asciiArtPath": "./art/eyes.txt",
         "description": "The 20-20-20 rule: Every 20 minutes, look up from your screen and focus on an item approximately 20 feet away for at least 20 seconds. This allows your eye muscles to relax after prolonged screen time and helps prevent digital eye strain.",
-        "cron": "15 * * * *"
+        "cron": "* * * * *"
     }
 ]

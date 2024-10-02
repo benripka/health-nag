@@ -1,55 +1,77 @@
 #!/bin/bash
-# This is the post-installation script for health-nag
 
+# Define constants
 INSTALL_DIR="/usr/share/health-nag"
 SCRIPT_NAME="screen_overlay.py"
 REMINDERS_FILE="/etc/health-nag/reminders.json"
 CRON_MARKER="# SCREEN_OVERLAY_REMINDER"
 LOG_FILE="/var/log/health-nag.log"
 
+# Get the non-root user who invoked sudo
+USER_TO_INSTALL_CRONTAB="${SUDO_USER:-$USER}"
+
 # Function to log messages
 log_message() {
     echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" >> "$LOG_FILE"
 }
 
-# Function to remove existing crontab entries
+# Function to remove existing crontab entries for the target user
 remove_existing_crontab() {
-    current_crontab=$(crontab -l 2>/dev/null)
+    current_crontab=$(sudo -u "$USER_TO_INSTALL_CRONTAB" crontab -l 2>/dev/null)
     if echo "$current_crontab" | grep -q "$CRON_MARKER"; then
-        log_message "Removing existing crontab entries with marker: $CRON_MARKER"
-        echo "$current_crontab" | grep -v "$CRON_MARKER" | crontab -
+        log_message "Removing existing crontab entries for user $USER_TO_INSTALL_CRONTAB with marker: $CRON_MARKER"
+        echo "$current_crontab" | grep -v "$CRON_MARKER" | sudo -u "$USER_TO_INSTALL_CRONTAB" crontab -
     else
-        log_message "No existing crontab entries to remove."
+        log_message "No existing crontab entries to remove for user $USER_TO_INSTALL_CRONTAB."
     fi
 }
-
-# Function to add new crontab entry
-add_crontab_entry() {
-    (crontab -l 2>/dev/null; echo "$1 >> $LOG_FILE 2>&1 $CRON_MARKER") | crontab -
-}
-
-# Create necessary directories
-mkdir -p "$INSTALL_DIR/art"
-log_message "Created art directory $INSTALL_DIR/art"
 
 clear_log_file() {
     echo "" > "$LOG_FILE"
     log_message "Log file cleared"
 }
 
-# Clear log file and remove existing crontab entries
+# Function to add new crontab entry for the target user
+add_crontab_entry() {
+    (sudo -u "$USER_TO_INSTALL_CRONTAB" crontab -l 2>/dev/null; echo "$1 >> $LOG_FILE 2>&1 $CRON_MARKER") | sudo -u "$USER_TO_INSTALL_CRONTAB" crontab -
+}
+
+# Create necessary directories
+mkdir -p "$INSTALL_DIR/art"
+log_message "Created art directory $INSTALL_DIR/art"
+
+# Clear log file
 clear_log_file
+
+# Remove existing crontab entries for the current user
 remove_existing_crontab
 
 # Read reminders.json and create cron jobs
 if [ -f "$REMINDERS_FILE" ]; then
+    log_message "$REMINDERS_FILE found. Setting up cron jobs for user $USER_TO_INSTALL_CRONTAB."
     jq -c '.[]' "$REMINDERS_FILE" | while read -r reminder; do
         name=$(echo "$reminder" | jq -r '.name')
         cron=$(echo "$reminder" | jq -r '.cron')
         add_crontab_entry "$cron $INSTALL_DIR/$SCRIPT_NAME --name \"$name\""
-        log_message "Added cron job for reminder '$name': $cron"
+        log_message "Added cron job for reminder '$name' for user $USER_TO_INSTALL_CRONTAB: $cron"
     done
 else
     log_message "Error: $REMINDERS_FILE not found."
     exit 1
+fi
+
+log_message "Installation complete. Cron jobs have been set up for user $USER_TO_INSTALL_CRONTAB."
+
+# Optionally: Test the last reminder as a verification step
+if [ -f "$REMINDERS_FILE" ]; then
+    last_reminder=$(jq -c '.[-1]' "$REMINDERS_FILE")
+    if [ $? -eq 0 ] && [ ! -z "$last_reminder" ]; then
+        last_reminder_name=$(echo "$last_reminder" | jq -r '.name')
+        log_message "Running last reminder '$last_reminder_name' as a test for user $USER_TO_INSTALL_CRONTAB..."
+        sudo -u "$USER_TO_INSTALL_CRONTAB" DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY "$INSTALL_DIR/$SCRIPT_NAME" --name "$last_reminder_name"
+    else
+        log_message "Error: Unable to get last reminder from $REMINDERS_FILE"
+    fi
+else
+    log_message "Error: $REMINDERS_FILE not found."
 fi
