@@ -10,9 +10,17 @@ logger = logging.getLogger(__name__)
 
 logger.info("Starting health-nag-script")
 
-def load_reminder(name):
+reminders_file = '/etc/health-nag/reminders.json'
+art_dir = '/usr/share/health-nag/'
+
+if not os.path.exists(reminders_file):
     script_dir = os.path.dirname(os.path.realpath(__file__))
     reminders_file = os.path.join(script_dir, 'reminders.json')
+
+if not os.path.exists(art_dir):
+    art_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'ascii-art')
+
+def load_reminder(name):
     with open(reminders_file, 'r') as f:
         reminders = json.load(f)
     
@@ -52,7 +60,7 @@ def overlay(reminder):
     content_frame.place(relx=0.5, rely=0.5, anchor="center")
 
     # Display ASCII art
-    full_art_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), reminder['asciiArtPath'])
+    full_art_path = os.path.join(art_dir, reminder['asciiArtPath'])   
     with open(full_art_path, 'r') as f:
         ascii_art_content = f.read()
     

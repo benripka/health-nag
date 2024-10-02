@@ -1,0 +1,52 @@
+name: Build Debian Package for Health-Nag
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install required tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y dpkg-dev fakeroot debhelper jq
+
+    - name: Create .deb package structure
+      run: |
+        mkdir -p health-nag/DEBIAN
+        mkdir -p health-nag/usr/local/bin
+        mkdir -p health-nag/etc/health-nag
+        mkdir -p health-nag/usr/share/health-nag
+        mkdir -p health-nag/var/log
+        
+        # Copy Python script and assets
+        cp screen_overlay.py health-nag/usr/local/bin/screen_overlay.py
+        cp reminders.json health-nag/etc/health-nag/reminders.json
+        cp -r art/*.txt health-nag/usr/share/health-nag/
+        
+        # Copy control and postinst from the packaging directory
+        cp packaging/control health-nag/DEBIAN/control
+        cp packaging/postinst health-nag/DEBIAN/postinst
+        chmod +x health-nag/DEBIAN/postinst
+
+    - name: Build .deb package
+      run: |
+        dpkg-deb --build health-nag
+
+    - name: Upload the .deb package as an artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: health-nag.deb
+        path: health-nag.deb
