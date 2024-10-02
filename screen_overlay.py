@@ -4,7 +4,6 @@ import tkinter as tk
 import argparse
 import json
 import os
-from datetime import timedelta
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -156,8 +155,5 @@ if __name__ == "__main__":
             'asciiArtPath': args.asciiArtPath
         }
     logger.info(f"Running reminder: {reminder['name']}")
-    logger.info(f"$DISPLAY = {os.environ.get('DISPLAY')}")
-    logger.info(f"XAUTHORITY = {os.environ.get('XAUTHORITY')}")
-    
     overlay(reminder)
 

@@ -16,7 +16,9 @@ The overlay cannot be exited until either the reminder is complete, or you agree
    - Drink: Reminds you to drink every 2 hours. Blocks screen for 10 seconds.
 - Customizable reminder messages and intervals
 
-## Installation (Debian/Ubuntu Linux)
+## Installation 
+
+### Debian/Ubuntu Linux
 
 1. Update your package list:
    ```
@@ -120,3 +122,76 @@ If you encounter any problems, have suggestions, or need assistance adapting Hea
 ---
 
 Stay healthy, stay focused!
+
+## Installation on macOS !!!!WARNING: This is untested, probably won't work. If you fix it please create a PR.
+
+For macOS users, we provide a separate installation script that uses launchd instead of cron for scheduling reminders. Follow these steps to install Health Nag on your Mac:
+
+1. Ensure you have Python 3 installed on your system. You can download it from [python.org](https://www.python.org/downloads/mac-osx/) if needed.
+
+2. Install the `jq` command-line JSON processor if you haven't already. The easiest way is to use Homebrew:
+   ```
+   brew install jq
+   ```
+   If you don't have Homebrew, you can install it from [brew.sh](https://brew.sh/).
+
+3. Clone this repository or download it as a ZIP file and extract it.
+
+4. Open Terminal and navigate to the directory containing the Health Nag files.
+
+5. Make the macOS install script executable:
+   ```
+   chmod +x install_mac.sh
+   ```
+
+6. Run the installation script:
+   ```
+   ./install_mac.sh
+   ```
+
+7. The script will create the necessary directories, copy files, and set up launchd jobs for each reminder defined in `reminders.json`.
+
+8. After installation, the script will run a test to ensure everything is working correctly.
+
+9. You can check the log file at `~/Library/Logs/health-nag.log` for any issues or to confirm successful installation.
+
+Note: The macOS version uses launchd plists located in `~/Library/LaunchAgents/` to schedule reminders. If you need to modify or remove reminders later, you can edit the `reminders.json` file and re-run the installation script, or manually edit the plist files.
+
+If you encounter any issues or need to uninstall, you can remove the launchd jobs by running:
+```
+launchctl unload ~/Library/LaunchAgents/com.health-nag.eyes.plist
+```
+
+### Installation on Windows - !!!WARNING: This is untested, probably won't work. If you fix it please create a PR.
+
+1. Ensure you have Python installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
+
+2. Install required Python packages:
+   ```
+   pip install tkinter
+   ```
+
+3. Clone this repository or download it as a ZIP file and extract it:
+   ```
+   git clone https://github.com/benripka/health-nag.git
+   cd health-nag
+   ```
+
+4. Run the PowerShell install script to set up the reminders. This will also run the last reminder in the list (for testing purposes). Rerunning the install script will reset the reminders to those set in reminders.json:
+   ```powershell
+   # Open PowerShell as Administrator
+   Set-ExecutionPolicy RemoteSigned -Scope Process
+   .\install.ps1
+   ```
+
+   Note: The `Set-ExecutionPolicy` command allows the script to run. You may need to adjust your execution policy if you encounter issues.
+
+5. The script will:
+   - Create an installation directory at `%LOCALAPPDATA%\health-nag`
+   - Copy all necessary files to the installation directory
+   - Set up scheduled tasks for each reminder in `reminders.json`
+   - Run the last reminder as a test
+
+6. You can view the installation log at `%USERPROFILE%\health-nag.log`
+
+After installation, the reminders will run according to their scheduled times. You can manage these tasks using the Windows Task Scheduler.
