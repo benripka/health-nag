@@ -31,16 +31,7 @@
 
 ## Overview
 
-Health-Nag is a desktop utility designed to provide forceful health-related reminders for those who are prone to hyperfixation. This tool aims to interrupt intense focus periods with important reminders to maintain physical and mental well-being such as
-
-By taking over your screen, Health-Nag ensures that critical health reminders are not easily ignored, helping users:
-
-- Perform eye exercises to reduce strain
-- Remember to stop for food
-- Remember to take a walk
-- Remember to take regular breaks
-- Stay hydrated
-- etc.
+Health-Nag is a desktop utility designed to provide forceful health-related reminders for those who are prone to hyperfixation. This tool aims to interrupt intense focus periods with important reminders to maintain physical and mental well-being such as resting your eyes, eating, hydrating, and taking breaks. Health-Nag ensures that critical health reminders are not easily ignored.
 
 ## How it works
 #### When a reminder is triggered your screen is taken over by this overlay for the duration of the reminder.
@@ -57,7 +48,7 @@ By taking over your screen, Health-Nag ensures that critical health reminders ar
 - Include ASCII art for custom reminders
 - Customizable reminder messages and intervals
 
-## Installation (Linux)
+## Installation (Debian/Ubuntu Linux)
 
 1. Update your package list:
    ```
