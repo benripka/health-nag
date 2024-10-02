@@ -40,7 +40,7 @@ jobs:
         cp packaging/control health-nag/DEBIAN/control
         cp packaging/postinst health-nag/DEBIAN/postinst
         chmod +x health-nag/DEBIAN/postinst
-
+        
     - name: Build .deb package
       run: |
         dpkg-deb --build health-nag
