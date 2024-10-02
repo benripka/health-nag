@@ -8,9 +8,9 @@ Health-Nag is a desktop utility designed to provide forceful health-related remi
 
 ## How it works
 #### When a reminder is triggered your screen is taken over by this overlay for the duration of the reminder.
-![When a reminder is triggered](<Screenshot from 2024-10-02 10-42-53.png>)
+![When a reminder is triggered](<docs/Screenshot from 2024-10-02 10-42-53.png>)
 #### The overlay cannot be exited until the reminder is complete, or until you agree to the consequences of exiting
-![When you try to exit the overlay](<Screenshot from 2024-10-02 10-42-58.png>)
+![When you try to exit the overlay](<docs/Screenshot from 2024-10-02 10-42-58.png>)
 ## Features
 - 3 reminder presets for:
    - Eyes: Reminds you to look away from your screen every 1 hr. Blocks screen for 30 seconds.
