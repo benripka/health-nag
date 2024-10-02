@@ -7,7 +7,7 @@
         "duration": 25,
         "asciiArtPath": "./art/eyes.txt",
         "description": "The 20-20-20 rule: Every 20 minutes, look up from your screen and focus on an item approximately 20 feet away for at least 20 seconds. This allows your eye muscles to relax after prolonged screen time and helps prevent digital eye strain.",
-        "cron": "0 * * * *"
+        "cron": "15 * * * *"
     },
     {
         "name": "food",
@@ -27,6 +27,6 @@
         "duration": 10,
         "description": "Headaches, dry mouth, fatigue, and more are all signs that you're not drinking enough water. If guzzling a cool mountain lake sounds appealing, it might be time to drink some water.",
         "asciiArtPath": "./art/base.txt",
-        "cron": "0 * * * *"
+        "cron": "0 */2 * * *" 
     }
 ]
