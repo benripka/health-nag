@@ -82,3 +82,19 @@ else
 fi
 
 log_message "Running first reminder as a test..."
+
+# Remove existing crontab entries
+remove_existing_crontab
+
+# Clear log file
+clear_log_file
+
+# Set up a single cron job to run every minute
+log_message "Setting up cron job to run every minute."
+add_crontab_entry "* * * * * /usr/bin/$SCRIPT_NAME"
+
+log_message "Installation complete. Cron job has been set up to run every minute."
+
+# Run the script as a test
+log_message "Running script as a test..."
+/usr/bin/$SCRIPT_NAME
