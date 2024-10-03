@@ -30,13 +30,11 @@ jobs:
         mkdir -p health-nag/etc/health-nag
         mkdir -p health-nag/usr/share/health-nag
         mkdir -p health-nag/var/log
-        
-        # Copy Python script and assets
+
         cp screen_overlay.py health-nag/usr/local/bin/screen_overlay.py
         cp reminders.json health-nag/etc/health-nag/reminders.json
         cp -r art/*.txt health-nag/usr/share/health-nag/
-        
-        # Copy control and postinst from the packaging directory
+
         cp packaging/control health-nag/DEBIAN/control
         cp packaging/postinst health-nag/DEBIAN/postinst
         chmod +x health-nag/DEBIAN/postinst
