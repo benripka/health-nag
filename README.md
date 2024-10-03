@@ -29,8 +29,14 @@ sudo dpkg -i health-nag.deb
 ```
 
 ## Add new reminders to nag yourself about
+To add custom reminders, rn you have to install it manually.
 
-1. Add an entry to the `reminders.json` file, for example:
+1.  Clone the repo
+```
+git clone https://github.com/benripka/health-nag.git
+```
+
+2.  Add an entry to the `reminders.json` file, for example:
 
 ```
 {
@@ -49,21 +55,10 @@ sudo dpkg -i health-nag.deb
   ]
 }
 ```
-Where
+3. Run the reinstall script to install with your custom reminders setup script:
 ```
-* * * * * command_to_run
-- - - - -
-| | | | |
-| | | | +----- Day of the week (0 - 7) (Sunday = 0 or 7)
-| | | +------- Month (1 - 12)
-| | +--------- Day of the month (1 - 31)
-| +----------- Hour (0 - 23)
-+------------- Minute (0 - 59)
-```
-
-2. Rerun the install script:
-```
-./install.sh
+chmod +x reinstall.sh
+./reinstall.sh
 ```
 
 ### Installation on macOS !!!!WARNING: This is untested, probably won't work. If you fix it please create a PR.
