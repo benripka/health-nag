@@ -20,49 +20,13 @@ The overlay cannot be exited until either the reminder is complete, or you agree
 
 ### Debian/Ubuntu Linux
 
-1. Update your package list:
-   ```
-   sudo apt update
-   ```
 
-2. Install the required system packages:
-   ```
-   sudo apt install python3-pyqt5 python3-pip x11-utils
-   ```
+1. Download the .deb file from the latest release (https://github.com/benripka/health-nag/releases/tag/v1.0.0)
 
-3. Clone this repository:
-   ```
-   git clone https://github.com/benripka/health-nag.git
-   cd health-nag
-   ```
-
-4. Run the install script to install the presets. This will also run the last reminder in the list (for testing purposes) Rerunning the install script will reset the reminders to those set in reminders.json:
-   ```
-   cd health-nag
-   cat install.sh # Inspect the script first to make sure you trust it
-   sudo chmod +x install.sh
-   ./install.sh
-   ```
-
-## Test your installation
-
-1. Run the script from install location (~/.local/bin/health-nag):
-
-   ```
-   ~/.local/bin/health-nag/screen_overlay.py --name "eyes"
-   ```
-   ```
-   ~/.local/bin/health-nag/screen_overlay.py \
-     --cron "* 9,12,18 * * *" # Run at 9am, 12pm, and 6pm \
-     --command "Have you eaten?" \
-     --overrideReason "What I'm doing right now is so important I would rather wither away than stop." \
-     --overrideKey "wither me away" \
-     --duration 4 \
-     --asciiArtPath ./art/food.txt \
-     --description "The 20-20-20 rule:
-       Every 20 minutes, look up from your screen and focus on an item approximately 20 feet away for at least 20 seconds. 
-       This allows your eye muscles to relax after prolonged screen time and helps prevent digital eye strain."
-   ```
+2. Install the .deb file:
+```
+sudo dpkg -i health-nag.deb
+```
 
 ## Add new reminders to nag yourself about
 
