@@ -32,6 +32,7 @@ def load_reminder(name):
     raise ValueError(f"No reminder found with name '{name}'")
 
 def overlay(reminder):
+
     def enable_override():
         if override_var.get():
             input_label.pack(pady=20)
@@ -48,15 +49,19 @@ def overlay(reminder):
         else:
             error_label.pack(pady=10)
 
+    
+    def keep_on_top():
+        root.lift()
+        root.attributes('-topmost', True)
+        root.after(100, keep_on_top)
+
     root = tk.Tk()
     root.title("Reminder")
 
-    # Make the window fullscreen
     root.attributes("-fullscreen", True)
-    root.attributes("-topmost", True)  # Ensure it stays on top
+    root.attributes("-topmost", True)
     root.configure(bg='#282c34')
 
-    # Main content frame to center the content
     content_frame = tk.Frame(root, bg='#282c34')
     content_frame.place(relx=0.5, rely=0.5, anchor="center")
 
@@ -130,13 +135,22 @@ def overlay(reminder):
 
     # Block all input
     root.bind("<Escape>", lambda e: None)  # Ignore escape
+    root.bind("<FocusOut>", lambda e: root.focus_force())
+    
+    # Capture all key presses to prevent task switching
+    def capture_keys(event):
+        return "break"
+    
+    root.bind("<Alt-Tab>", capture_keys)
+    root.bind("<Alt-F4>", capture_keys)
+    root.bind("<Control-Escape>", capture_keys)
+
+    # Keep the window on top
+    keep_on_top()
+
     root.update()
 
-    # Remove the auto-destroy after line
-    # root.after(reminder['duration'] * 1000, root.destroy)
-
     root.mainloop()
-
 
 if __name__ == "__main__":
     logger.info(f"Running reminder")
