@@ -1,4 +1,4 @@
-name: Build Debian Package for Health-Nag
+name: Build and Release Debian Package for Health-Nag
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
         cp packaging/control health-nag/DEBIAN/control
         cp packaging/postinst health-nag/DEBIAN/postinst
         chmod +x health-nag/DEBIAN/postinst
-        
+
     - name: Build .deb package
       run: |
         dpkg-deb --build health-nag
@@ -48,3 +48,16 @@ jobs:
       with:
         name: health-nag.deb
         path: health-nag.deb
+
+    - name: Get the latest release
+      id: get_release
+      run: |
+        LATEST_RELEASE=$(curl -s https://api.github.com/repos/benripka/health-nag/releases/latest)
+        echo "::set-output name=id::$(echo $LATEST_RELEASE | jq -r .id)"
+
+    - name: Upload the .deb file to the release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: health-nag.deb
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
