@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Define constants
+INSTALL_DIR="/usr/local/bin"
+ART_DIR="/usr/share/health-nag"
+SCRIPT_NAME="screen_overlay.py"
+REMINDERS_FILE="/etc/health-nag/reminders.json"
+CRON_MARKER="# SCREEN_OVERLAY_REMINDER"
+LOG_FILE="/var/log/health-nag.log"
+
+# Get the user who originally installed the package
+USER_TO_REMOVE_CRONTAB="${SUDO_USER:-$USER}"
+
+# Function to log messages
+log_message() {
+    echo "$(date +"%Y-%m-%d %H:%M:%S") - $1" >> "$LOG_FILE"
+}
+
+# Function to remove crontab entries for the non-root user
+remove_crontab() {
+    current_crontab=$(sudo -u "$USER_TO_REMOVE_CRONTAB" crontab -l 2>/dev/null)
+    
+    if [ -z "$current_crontab" ]; then
+        log_message "No crontab found for user $USER_TO_REMOVE_CRONTAB."
+        return
+    fi
+
+    if echo "$current_crontab" | grep -q "$CRON_MARKER"; then
+        log_message "Removing crontab entries for user $USER_TO_REMOVE_CRONTAB with marker: $CRON_MARKER"
+        updated_crontab=$(echo "$current_crontab" | grep -v "$CRON_MARKER")
+        echo "$updated_crontab" | sudo -u "$USER_TO_REMOVE_CRONTAB" crontab -
+        log_message "Crontab entries removed for user $USER_TO_REMOVE_CRONTAB."
+    else
+        log_message "No crontab entries to remove for user $USER_TO_REMOVE_CRONTAB."
+    fi
+}
+
+# Perform the crontab removal
+remove_crontab
+
+exit 0

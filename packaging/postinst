@@ -6,10 +6,13 @@ ART_DIR="/usr/share/health-nag"
 SCRIPT_NAME="screen_overlay.py"
 REMINDERS_FILE="/etc/health-nag/reminders.json"
 CRON_MARKER="# SCREEN_OVERLAY_REMINDER"
-LOG_FILE="/var/log/health-nag.log"
+LOG_FILE_NAME=".health-nag.log"
 
 # Get the non-root user who invoked sudo
 USER_TO_INSTALL_CRONTAB="${SUDO_USER:-$USER}"
+USER_HOME=$(eval echo ~$USER_TO_INSTALL_CRONTAB)
+# Set the full path for the log file
+LOG_FILE="$USER_HOME/$LOG_FILE_NAME"
 
 # Function to log messages
 log_message() {
@@ -49,7 +52,7 @@ if [ -f "$REMINDERS_FILE" ]; then
     jq -c '.[]' "$REMINDERS_FILE" | while read -r reminder; do
         name=$(echo "$reminder" | jq -r '.name')
         cron=$(echo "$reminder" | jq -r '.cron')
-        add_crontab_entry "$cron $INSTALL_DIR/$SCRIPT_NAME --name \"$name\""
+        add_crontab_entry "$cron export DISPLAY=$DISPLAY && export XAUTHORITY=$XAUTHORITY &&  $INSTALL_DIR/$SCRIPT_NAME --name \"$name\""
         log_message "Added cron job for reminder '$name' for user $USER_TO_INSTALL_CRONTAB: $cron"
     done
 else

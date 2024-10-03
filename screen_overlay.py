@@ -5,13 +5,14 @@ import argparse
 import json
 import os
 
+reminders_file = '/etc/health-nag/reminders.json'
+art_dir = '/usr/share/health-nag/'
+log_file = '/var/log/health-nag.log'
+
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 logger.info("Starting health-nag-script")
-
-reminders_file = '/etc/health-nag/reminders.json'
-art_dir = '/usr/share/health-nag/'
 
 if not os.path.exists(reminders_file):
     script_dir = os.path.dirname(os.path.realpath(__file__))
