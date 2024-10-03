@@ -7,7 +7,7 @@
         "duration": 300,
         "asciiArtPath": "food.txt",
         "description": "Food is fuel, and you might be running on empty. Take a break and eat something it will make a world of difference.",
-        "cron": "0 11,14,20 * * *"
+        "cron": "10 10,13,19 * * *"
     },
     {
         "name": "water",
@@ -17,7 +17,7 @@
         "duration": 10,
         "description": "Headaches, dry mouth, fatigue, and more are all signs that you're not drinking enough water. If guzzling a cool mountain lake sounds appealing, it might be time to drink some water.",
         "asciiArtPath": "base.txt",
-        "cron": "0 */2 * * *" 
+        "cron": "30 */2 * * *" 
     },
     {
         "name": "eyes",
@@ -27,6 +27,6 @@
         "duration": 2,
         "asciiArtPath": "eyes.txt",
         "description": "The 20-20-20 rule: Every 20 minutes, look up from your screen and focus on an item approximately 20 feet away for at least 20 seconds. This allows your eye muscles to relax after prolonged screen time and helps prevent digital eye strain.",
-        "cron": "* * * * *"
+        "cron": "0 * * * *"
     }
 ]
